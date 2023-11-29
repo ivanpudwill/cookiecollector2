@@ -4,24 +4,33 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="cookies.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="cookies.js"></script>
+
   </head>
 
   <body>
     <div class="panel">
       <div class="panel-section panel-section-header">
-        <div class="text-section-header" id="header-title"></div>
+        <div class="text-section-header" id="header-title">
+
+        </div>
       </div>
-      <table id="cookie-table">
+      <!-- DataTables initialization -->
+      <table id="cookie-list" class="display dataTable" width="100%" role="grid" aria-describedby="example_info">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
         </thead>
-        <tbody id="cookie-list"></tbody>
+        <tbody>
+            <!-- DataTable will dynamically populate this section -->
+        </tbody>
       </table>
     </div>
-    <script src="cookies.js"></script>
   </body>
 
 </html>

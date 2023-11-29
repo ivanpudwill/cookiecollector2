@@ -1,28 +1,27 @@
 {
-    "browser_action": {
-      "browser_style": true,
-      "default_title": "List cookies in the active tab",
-      "default_icon": {
-        "48": "icon.png"
-      }
-    },
-
-    "sidebar_action": {
-      "default_title": "Cookie Collector",
-      "default_panel": "cookies.html",
-      "default_icon": "icon.png"
-    },
-
-    "description": "List cookies in the active tab.",
-    
-    "icons": {
+  "browser_action": {
+    "browser_style": true,
+    "default_title": "List cookies in the active tab",
+    "default_icon": {
       "48": "icon.png"
-    },
+    }
+  },
 
-    "manifest_version": 2,
-    "name": "List cookies",
-    "version": "1.0",
-    "permissions": ["cookies","<all_urls>","tabs"]
-  }
+  "sidebar_action": {
+    "default_title": "Cookie Collector",
+    "default_panel": "cookies.html",
+    "default_icon": "icon.png"
+  },
 
- 
+  "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.6.4.min.js https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js; object-src 'self'",
+  "description": "List cookies in the active tab.",
+  
+  "icons": {
+    "48": "icon.png"
+  },
+
+  "manifest_version": 2,
+  "name": "List cookies",
+  "version": "1.0",
+  "permissions": ["cookies", "<all_urls>", "tabs"]
+}
