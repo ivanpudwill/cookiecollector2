@@ -2,18 +2,27 @@
     "browser_action": {
       "browser_style": true,
       "default_title": "List cookies in the active tab",
-      "default_popup": "cookies.html",
       "default_icon": {
         "48": "icon.png"
       }
     },
+
+    "sidebar_action": {
+      "default_title": "Cookie Collector",
+      "default_panel": "cookies.html",
+      "default_icon": "icon.png"
+    },
+
     "description": "List cookies in the active tab.",
+    
     "icons": {
       "48": "icon.png"
     },
-    "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/list-cookies",
+
     "manifest_version": 2,
     "name": "List cookies",
     "version": "1.0",
     "permissions": ["cookies","<all_urls>","tabs"]
   }
+
+ 
