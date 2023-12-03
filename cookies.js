@@ -1,26 +1,19 @@
 browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
+    // update cookies at current url
     if (message.action === 'updateCookies') {
         updateCookieInfo(message.cookies, message.tabTitle);
     }
+    if (message.action === 'updateAllCookies') {
+        updateFullCookieInfo(message.cookies);
+    }
 });
 
-// update the cookies in the sidebar 
+
+// update the list of cookies at the current url
 function updateCookieInfo(cookies, tabTitle) {
-    console.log(cookies)
     let activeTabUrl = $('#header-title');
     activeTabUrl.html("Current Site " + tabTitle);
 
-    let cookieTable = $('#cookie-list').DataTable({
-        "columns": [
-            { "width": "15%", "targets": 0 },
-            { "width": "30%", "targets": 1 },
-            { "width": "50%", "targets": 2 },
-            { "width": "5%", "targets": 3 }
-        ],
-        "columnDefs": [
-            { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
-        ]
-    });
     cookieTable.clear();
 
     if (cookies.length > 0) {
@@ -32,19 +25,52 @@ function updateCookieInfo(cookies, tabTitle) {
     }
 }
 
+//update the list of all cookies
+function updateFullCookieInfo(cookies) {
+   fullCookieTable.clear()
+    if (cookies.length > 0) {
+        for (let cookie of cookies) {
+            fullCookieTable.row.add([cookie.name, cookie.domain, cookie.value, cookie.expirationDate]).draw();
+        }
+    } else {
+        fullCookieTable.row.add(["There are no cookies stored.", ""]).draw();
+    }
+}
+
+
+
 // Initialize DataTable when the document is ready
 $(document).ready(function () {
-    $('#cookie-list').DataTable({
-        "columns": [
-            { "width": "15%", "targets": 0 },
-            { "width": "30%", "targets": 1 },
-            { "width": "50%", "targets": 2 },
-            { "width": "5%", "targets": 3 }
-        ],
-        "columnDefs": [
-            { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
-        ]
-    });
+    cookieTable = $('#domain-cookie-list').DataTable(tbl_opts);
+    fullCookieTable = $('#full-cookie-list').DataTable(tbl_opts);
 });
 
-
+var tbl_opts = {
+    "order": [[1, "asc"]],
+    "columnDefs": [
+        { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
+    ],
+    "columns": [
+        { "title": "Name",
+            "width": "16%", 
+            "targets": 0,
+            "render": function(data) { return data || ""; }
+        },
+        { "title": "Domain",
+            "width": "20%", 
+            "targets": 1,
+            "render": function(data) { return data || ""; }
+        },
+        { "title": "Value",
+            "width": "44%", 
+            "targets": 2,
+            "render": function(data) { return data || ""; }
+        },
+        { "title": "Expiration Date",
+            "width": "20%",
+            "targets": 3,
+            "render": function(data){
+                return moment.unix(data).format("LTS L")
+            }
+        }]
+}

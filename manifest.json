@@ -9,7 +9,7 @@
     "persistent": true
   },
 
-  "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.6.4.min.js https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.6.4.min.js https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js; object-src 'self'",
 
   "icons": {
     "48": "icon.png"

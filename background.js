@@ -14,9 +14,14 @@ function getCookies(tabs) {
         // get first active tab
         let tab = tabs.pop();
 
+        // get cookies on current tab
+        let cookies = browser.cookies.getAll({url : tab.url}, function(cookies) {
+            browser.runtime.sendMessage({action: 'updateCookies', cookies: cookies, tabTitle: tab.title});
+        });
+
         // get all cookies
         let allCookies = browser.cookies.getAll({}, function(cookies) {
-            browser.runtime.sendMessage({action: 'updateCookies', cookies: cookies, tabTitle: tab.title});
+            browser.runtime.sendMessage({action: 'updateAllCookies', cookies: cookies});
         });
 }
 

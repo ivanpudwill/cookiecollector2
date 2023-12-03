@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="cookies.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    
     <script src="cookies.js"></script>
 
   </head>
@@ -15,18 +17,20 @@
     <div class="panel">
       <div class="panel-section panel-section-header">
         <div class="text-section-header" id="header-title">
-
         </div>
       </div>
       <!-- DataTables initialization -->
-      <table id="cookie-list" class="display dataTable" role="grid" aria-describedby="Name">
+      Domain Cookies
+      <table id="domain-cookie-list" class="display dataTable">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Domain</th>
-                <th>Value</th>
-                <th>Expiration Date</th>
-            </tr>
+        </thead>
+        <tbody>
+            <!-- DataTable will dynamically populate this section -->
+        </tbody>
+      </table>
+      All Cookies
+      <table id="full-cookie-list" class="display dataTable">
+        <thead>
         </thead>
         <tbody>
             <!-- DataTable will dynamically populate this section -->
