@@ -37,4 +37,17 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
     getActiveTab().then(getCookies);
 });
 
+function deleteAllCookies(tabs) {
+    browser.cookies.getAll({}, function(cookies) { 
+        for (let cookie of cookies) {
+            browser.cookies.remove({url : cookie.url, name : cookie.name});
+        };
+    });
+}
+browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "ClearCookies") {
+        getActiveTab().then(deleteAllCookies);
+        getActiveTab().then(getCookies); // check for cookies again
+    }
+})
 

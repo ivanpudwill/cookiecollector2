@@ -12,7 +12,7 @@ browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
 // update the list of cookies at the current url
 function updateCookieInfo(cookies, tabTitle) {
     let activeTabUrl = $('#header-title');
-    activeTabUrl.html("Current Site: " + tabTitle);
+    activeTabUrl.html(tabTitle);
 
     cookieTable.clear();
 
@@ -76,8 +76,12 @@ var tbl_opts = {
     autoWidth: true
 }
 
-/*
-"columnDefs": [
-        { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
-    ]
-*/
+document.getElementById('ClearCookies').addEventListener('click', function() {
+    browser.runtime.sendMessage({action: "ClearCookies"});
+
+})
+
+document.getElementById('DownloadCookies').addEventListener('click', function() {
+    browser.runtime.sendMessage({action: "DownloadCookies"});
+})
+
