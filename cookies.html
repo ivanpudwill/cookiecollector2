@@ -14,29 +14,35 @@
   </head>
 
   <body>
-    <div class="panel">
-      <div class="panel-section panel-section-header">
-        <div class="text-section-header" id="header-title">
-        </div>
+    <div class="text-section-header" id="header-title">
+      <!-- current tab title added dynamically here-->
+    </div>
+    <div class="table-container">
+      <div class="table-wrapper">
+        <table id="domain-cookie-list" class="display" style="width: 100%;">
+          <thead>
+
+          </thead>
+          <tbody>
+            <!--- Dynamic data added here-->
+          </tbody>
+        </table>
+        <div class="pagination"></div>
       </div>
-      <!-- DataTables initialization -->
-      Domain Cookies
-      <table id="domain-cookie-list" class="display dataTable">
-        <thead>
-        </thead>
-        <tbody>
-            <!-- DataTable will dynamically populate this section -->
-        </tbody>
-      </table>
-      All Cookies
-      <table id="full-cookie-list" class="display dataTable">
-        <thead>
-        </thead>
-        <tbody>
-            <!-- DataTable will dynamically populate this section -->
-        </tbody>
-      </table>
+    </div>
+
+    <div class="table-container">
+      <div class="table-wrapper">
+        <table id="full-cookie-list" class="display" style="width: 100%;">
+          <thead>
+
+          </thead>
+          <tbody>
+            <!--- Dynamic data added here-->
+          </tbody>
+        </table>
+        <div class="pagination"></div>
+      </div>
     </div>
   </body>
-
 </html>

@@ -12,7 +12,7 @@ browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
 // update the list of cookies at the current url
 function updateCookieInfo(cookies, tabTitle) {
     let activeTabUrl = $('#header-title');
-    activeTabUrl.html("Current Site " + tabTitle);
+    activeTabUrl.html("Current Site: " + tabTitle);
 
     cookieTable.clear();
 
@@ -37,8 +37,6 @@ function updateFullCookieInfo(cookies) {
     }
 }
 
-
-
 // Initialize DataTable when the document is ready
 $(document).ready(function () {
     cookieTable = $('#domain-cookie-list').DataTable(tbl_opts);
@@ -47,9 +45,6 @@ $(document).ready(function () {
 
 var tbl_opts = {
     "order": [[1, "asc"]],
-    "columnDefs": [
-        { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
-    ],
     "columns": [
         { "title": "Name",
             "width": "16%", 
@@ -72,5 +67,17 @@ var tbl_opts = {
             "render": function(data){
                 return moment.unix(data).format("LTS L")
             }
-        }]
+        }],
+    paging: true,
+    lengthChange: false,
+    searching: false,
+    ordering: true,
+    info: false,
+    autoWidth: true
 }
+
+/*
+"columnDefs": [
+        { "targets": '_all', "white-space": "nowrap", "overflow": "hidden" }
+    ]
+*/

@@ -1,35 +1,41 @@
-html, body {
-    width: 100%;
-  }
-  
-  .panel {
-    padding: 5px;
-    max-width: 93%;
-    margin: auto;
-    overflow: auto;
-  }
+#header-title {
+  font-size: 18px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  width: 40%;
+  text-align: center;
 
-  #header-title {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
+}
 
-  #domain-cookie-list {
-    margin-bottom: 20px;
-  }
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  overflow-x: hidden; /* Ensure no hidden overflow at the document level */
+}
 
-  #domain-cookie-list td {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-  }
-    
-  #full-cookie-list {    
-    margin-bottom: 20px;
-  }
+.table-container {
+  width: 100%;
+  overflow: scroll;
+  margin-bottom: 40px;
+}
+.table-wrapper {
+    position: relative;
+}
+table {
+  width: 93%; /* Set the width to 100% or a fixed width in pixels */
+  table-layout: fixed;
+  margin: 10px;
+}
 
-  #full-cookie-list td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+th, td {
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Display an ellipsis (...) for truncated text */
+}
+
+.dataTables_scrollBody {
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
