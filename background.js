@@ -38,24 +38,29 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 function deleteAllCookies() {
-    browser.cookies.getAll({}, function(cookies) { 
-        console.log(cookies);
-        for (let cookie of cookies) {
-            // Because we want all domains
-            const param = {
-                url: (cookie.secure ? 'https://' : 'http://') + cookie.domain + cookie.path,
-                name: cookie.name
-            };
-            browser.cookies.remove(param);
-        }
+    // use promises to ensure we don't update the cookie tables until all cookies are deleted
+    return new Promise((resolve) => {
+        browser.cookies.getAll({}, function (cookies) {
+            const promises = cookies.map((cookie) => {
+                const param = {
+                    url: (cookie.secure ? 'https://' : 'http://') + cookie.domain + cookie.path,
+                    name: cookie.name,
+                };
+                return browser.cookies.remove(param);
+            });
+
+            Promise.all(promises).then(() => {
+                resolve();
+            });
+        });
     });
 }
 
-browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.action === "ClearCookies") {
-        browser.tabs.query({}).then(deleteAllCookies);
-        getActiveTab().then(getCookies); // check for cookies again
-
+        deleteAllCookies().then(() => {
+            // Update cookies after deletion is complete
+            getActiveTab().then(getCookies);
+        });
     }
-})
-
+});
