@@ -37,17 +37,25 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
     getActiveTab().then(getCookies);
 });
 
-function deleteAllCookies(tabs) {
+function deleteAllCookies() {
     browser.cookies.getAll({}, function(cookies) { 
+        console.log(cookies);
         for (let cookie of cookies) {
-            browser.cookies.remove({url : cookie.url, name : cookie.name});
-        };
+            // Because we want all domains
+            const param = {
+                url: (cookie.secure ? 'https://' : 'http://') + cookie.domain + cookie.path,
+                name: cookie.name
+            };
+            browser.cookies.remove(param);
+        }
     });
 }
+
 browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action === "ClearCookies") {
-        getActiveTab().then(deleteAllCookies);
+        browser.tabs.query({}).then(deleteAllCookies);
         getActiveTab().then(getCookies); // check for cookies again
+
     }
 })
 

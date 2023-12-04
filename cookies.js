@@ -76,12 +76,14 @@ var tbl_opts = {
     autoWidth: true
 }
 
-document.getElementById('ClearCookies').addEventListener('click', function() {
-    browser.runtime.sendMessage({action: "ClearCookies"});
-
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('ClearCookies').addEventListener('click', function() {
+        browser.runtime.sendMessage({action: "ClearCookies"});
+    
+    })
+    document.getElementById('DownloadCookies').addEventListener('click', function() {
+        browser.runtime.sendMessage({action: "DownloadCookies"});
+    })
 })
 
-document.getElementById('DownloadCookies').addEventListener('click', function() {
-    browser.runtime.sendMessage({action: "DownloadCookies"});
-})
 
