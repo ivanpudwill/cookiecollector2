@@ -41,7 +41,42 @@ function updateFullCookieInfo(cookies) {
 $(document).ready(function () {
     cookieTable = $('#domain-cookie-list').DataTable(tbl_opts);
     fullCookieTable = $('#full-cookie-list').DataTable(tbl_opts);
+
+    // Download cookies when the button is clicked
+    $('#DownloadCookies').on('click', function() {
+        exportTableToCsv('cookies' + moment.unix(Date.now()).format() + '.csv', fullCookieTable);
+    });
 });
+
+ // Function to export DataTable to CSV
+function exportTableToCsv(filename, table) {
+    var csv = [];
+    var rows = table.rows().data();
+
+    // Header
+    var header = table.columns().header().toArray().map(function(column) {
+        return $(column).text().trim();
+    });
+    csv.push(header.join(','));
+
+    // Rows
+    rows.each(function(row) {
+        var rowData = row.map(function(cellData) {
+            return '"' + cellData + '"';
+        });
+        csv.push(rowData.join(','));
+    });
+
+    // Create a Blob and trigger download
+    var blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    var link = document.createElement('a');
+
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 var tbl_opts = {
     "order": [[1, "asc"]],
