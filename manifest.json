@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "List cookies",
+  "name": "Cookie Pilot",
   "version": "1.0",
   "permissions": ["cookies", "<all_urls>", "tabs"],
   "description": "List cookies in the active tab.",
