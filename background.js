@@ -25,6 +25,12 @@ function getCookies(tabs) {
         });
 }
 
+function downloadAllCookies() {
+    let fullCookies = browser.cookies.getAll({}, function(cookies) {
+        browser.runtime.sendMessage({action: 'downloadAllCookies', cookies: cookies});
+    });
+}
+
 //Check for a new page loading
 browser.tabs.onUpdated.addListener(function (tabId, changeInfo) {
     if (changeInfo.status == "complete") {
@@ -38,7 +44,7 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 function deleteAllCookies() {
-    // use promises to ensure we don't update the cookie tables until all cookies are deleted
+    // ensure we don't update the cookie tables until all cookies are deleted
     return new Promise((resolve) => {
         browser.cookies.getAll({}, function (cookies) {
             const promises = cookies.map((cookie) => {
@@ -64,3 +70,4 @@ browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         });
     }
 });
+

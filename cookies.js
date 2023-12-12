@@ -1,13 +1,29 @@
 browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
     // update cookies at current url
+    console.log("Received message: " + message.action);
     if (message.action === 'updateCookies') {
         updateCookieInfo(message.cookies, message.tabTitle);
     }
     if (message.action === 'updateAllCookies') {
         updateFullCookieInfo(message.cookies);
     }
+    if (message.action === 'downloadAllCookies') {
+        downloadAllCookies(message.cookies);
+    }
 });
 
+
+/** A function to run in the developer console to download the full cookie info */
+function downloadAllCookies(cookies) {
+    var jsonString = JSON.stringify(cookies);
+    var blob = new Blob([jsonString], { type: 'application/json' });
+
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "cookieJSON";
+    document.body.appendChild(link);
+    link.click()
+}
 
 // update the list of cookies at the current url
 function updateCookieInfo(cookies, tabTitle) {
