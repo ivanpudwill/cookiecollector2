@@ -2,8 +2,9 @@
   "manifest_version": 2,
   "name": "Cookie Pilot",
   "version": "1.0",
-  "permissions": ["cookies", "<all_urls>", "tabs"],
   "description": "List cookies in the active tab.",
+  "permissions": ["cookies", "<all_urls>", "tabs"],
+  
   "background": {
     "scripts": ["background.js"],
     "persistent": true
