@@ -13,7 +13,7 @@ browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
 });
 
 
-/** A function to run in the developer console to download the full cookie info */
+/** A function to run in the developer console to download the cookie info with all of it's fields*/
 function downloadAllCookies(cookies) {
     var jsonString = JSON.stringify(cookies);
     var blob = new Blob([jsonString], { type: 'application/json' });
