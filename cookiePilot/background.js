@@ -33,7 +33,7 @@ function downloadAllCookies() {
 
 //Check for a new page loading
 browser.tabs.onUpdated.addListener(function (tabId, changeInfo) {
-    if (changeInfo.status == "complete") {
+    if (changeInfo.status === "complete") {
         getActiveTab().then(getCookies);
     }
 });

@@ -1,4 +1,4 @@
-browser.runtime.onMessage.addListener(function(message,sender, sendResponse) {
+browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     // update cookies at current url
     console.log("Received message: " + message.action);
     if (message.action === 'updateCookies') {

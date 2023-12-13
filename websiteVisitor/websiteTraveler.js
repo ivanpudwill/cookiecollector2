@@ -7,24 +7,22 @@ function updateProgress(message) {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Your popup initialization code goes here
-    document.getElementById('startButton').addEventListener('click', startExtension);
+    console.log("DOM Content Loaded");
+    document.getElementById('startButton').addEventListener('click', startTraveling);
 });
 
-function startExtension() {
-    // Your code to start the extension goes here
-    // For example, you can trigger the background script to perform actions
-    browser.runtime.sendMessage({ action: 'startExtension' });
+function startTraveling() {
+    browser.runtime.sendMessage({ action: 'startTraveling' });
 }
 
 // Listen for messages from the background script
-browser.runtime.onMessage.addListener(function (message) {
+browser.runtime.onMessage.addListener(function (message, sender, response) {
   if (message.action === 'updateProgress') {
       updateProgress(message.message);
   }
 });
 
 function updateProgress(message) {
-  // Update the progress message in the popup
-  document.getElementById('progressMessage').textContent = message;
+  document.getElementById('progress').textContent = message;
 }
 
