@@ -1,5 +1,6 @@
 let pagesToVisit = [];
 let currentIndex = 0;
+let searchTabID = 22;
 
 browser.browserAction.onClicked.addListener(function() {
     browser.windows.create({
@@ -29,18 +30,14 @@ function startTraveling() {
         browser.tabs.onUpdated.addListener(onTabUpdated);
 
         // Open the first page
-        browser.tabs.create({ url: pagesToVisit[currentIndex] });
+        browser.tabs.create({ url: pagesToVisit[currentIndex], active: true});
     });
 }
 
-//get active tab
-function getActiveTab() {
-    return browser.tabs.query({currentWindow: true, active: true});
-}
 
 function onTabUpdated(tabId, changeInfo, tab) {
-    if (changeInfo.status === "complete") {
-        getActiveTab().then(visitNextPage(tabId))
+    if (changeInfo.status === "complete" && changeInfo.url !== tab.url) {
+        visitNextPage(tabId, tab)
     }
 }
 
@@ -48,20 +45,22 @@ function updateProgress(message) {
     browser.runtime.sendMessage({action: 'updateProgress', message: message})
 }
 
-function visitNextPage(tabId) {
+function visitNextPage(tabId, tab) {
     currentIndex++;
-    console.log(currentIndex)
+
+    console.log("Webpage number " + currentIndex + " at url " + tab.url)
     
-    const progressMessage = `Page ${currentIndex + 1} of ${pagesToVisit.length}`;
+    const progressMessage = `Page ${currentIndex} of ${pagesToVisit.length}`;
     
     updateProgress(progressMessage);
-    
+    console.log("\t" + progressMessage)
     if (currentIndex < pagesToVisit.length) {
-        browser.tabs.update(tabId, { url: pagesToVisit[currentIndex] });
+        browser.tabs.update(tabId, { url: pagesToVisit[currentIndex], active: true});
     } else {
         // All pages visited
         currentIndex = 0;
         updateProgress('All pages visited');
         browser.tabs.onUpdated.removeListener(onTabUpdated);
+        return;
     }
 }
